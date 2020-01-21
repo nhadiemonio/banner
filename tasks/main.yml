@@ -1,0 +1,20 @@
+---
+
+  - name: copy banner to issue file
+    copy:
+      src: banner
+      dest: /etc/issue
+      owner: root
+      group: root
+ 
+  - name: set ssh banner to issue file
+    lineinfile:
+      path: /etc/ssh/sshd_config
+      regexp: '^#Banner'
+      line: 'Banner /etc/issue'
+
+  - name: reload ssh
+    shell: sshd -t
+    register: sshd_config_check
+    failed_when: sshd_config_check.rc != 0
+    notify: restart sshd

@@ -1,0 +1,16 @@
+---
+  - name: start sshd
+    systemd:
+      name: sshd
+      enabled: yes
+      state: started
+
+  - name: restart sshd
+    systemd:
+      name: sshd
+      state: restarted
+
+  - name: stop sshd
+    systemd:
+      name: sshd
+      state: stopped
